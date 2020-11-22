@@ -1,0 +1,12 @@
+<resources>
+    <!--    <string name="app_name">TransactionOfIdleGoods</string>-->
+    <string name="app_name">闲虾</string>
+    <string name="title_activity_botton_navigation">闲虾</string>
+
+    <!--底部菜单栏-->
+    <string name="title_home">闲虾</string>
+    <string name="title_add">卖闲置</string>
+    <string name="title_my">我的</string>
+    <string name="title_message">消息</string>
+
+</resources>
