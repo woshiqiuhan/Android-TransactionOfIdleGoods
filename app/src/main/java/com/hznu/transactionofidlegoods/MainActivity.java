@@ -2,10 +2,10 @@ package com.hznu.transactionofidlegoods;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
-import com.hznu.transactionofidlegoods.bottomnavigation.BottonNavigationActivity;
+import androidx.appcompat.app.ActionBar;
+
 import com.hznu.transactionofidlegoods.login.ui.login.LoginActivity;
 import com.hznu.transactionofidlegoods.utils.BaseActivity;
 
@@ -16,10 +16,14 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(MainActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
+        //隐藏系统自带顶部状态栏
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.hide();
+        }
 
+        Toast.makeText(MainActivity.this, "请先登录！", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
-
     }
 }

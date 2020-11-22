@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -31,6 +32,13 @@ public class LoginActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //隐藏系统自带顶部状态栏
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.hide();
+        }
+
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory()).get(LoginViewModel.class);
 
         final EditText usernameEditText = findViewById(R.id.username);
@@ -73,16 +81,18 @@ public class LoginActivity extends BaseActivity {
                 if (loginResult.getSuccess() != null) {  //信息核对成功处理
                     updateUiWithUser(loginResult.getSuccess());
 
-                    Toast.makeText(LoginActivity.this, "Hey Man!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Hey Man!", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(LoginActivity.this, BottonNavigationActivity.class);
                     startActivity(intent);
-                }
-                setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                //成功后完成并销毁登录活动
-                finish();
+                    setResult(Activity.RESULT_OK);
+
+                    //Complete and destroy login activity once successful
+                    //成功后完成并销毁登录活动
+                    finish();
+                }
+
             }
         });
 
@@ -137,7 +147,7 @@ public class LoginActivity extends BaseActivity {
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_SHORT).show();
     }
 
     //登录失败处理方法
