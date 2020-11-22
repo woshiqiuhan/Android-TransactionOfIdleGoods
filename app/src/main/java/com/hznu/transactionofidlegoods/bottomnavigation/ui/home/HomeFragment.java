@@ -8,23 +8,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListPopupWindow;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hznu.transactionofidlegoods.R;
+import com.hznu.transactionofidlegoods.utils.FilePersistenceIO;
 import com.hznu.transactionofidlegoods.utils.SoftKeyBoardListener;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     // 数据的列表，即搜索下拉框列表元素，后从数据库获取
-    private final String[] mStrings = {"张三", "李四", "王五", "赵六"};
+    private List<String> searchRecords;
+
     private SearchView searchViewHome;
     private ListPopupWindow listPopupWindow;
     private Toolbar toolbar;
@@ -35,6 +36,9 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //获取搜索记录
+        searchRecords = homeViewModel.getSearchRecords(getContext());
+
         //根据id获取控件
         searchViewHome = (SearchView) root.findViewById(R.id.searchView_homeSearch);
         searchViewHome.setSubmitButtonEnabled(true); //设置右端搜索键显示
@@ -42,20 +46,21 @@ public class HomeFragment extends Fragment {
         //创建下拉列表
         listPopupWindow = new ListPopupWindow(getContext());
         //创建下拉列表数据项
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mStrings);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, searchRecords);
         //绑定下拉列表数据
         listPopupWindow.setAdapter(adapter);
         //绑定锚点，从什么控件下开始展开
-        listPopupWindow.setAnchorView(toolbar);
+        listPopupWindow.setAnchorView(searchViewHome);
         //为每项数据项绑定事件
         listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listPopupWindow.dismiss();  //隐藏下拉框
                 //设置searchViewHome内部text
-                searchViewHome.setQuery(mStrings[position], true);
+                searchViewHome.setQuery(searchRecords.get(position), true);
             }
         });
+
         //监听小键盘开启和隐藏
         SoftKeyBoardListener.setListener(getActivity(), new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
@@ -87,7 +92,22 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {  //输入关键字后按下搜索键触发
                 searchViewHome.clearFocus();
-                Toast.makeText(getContext(), "搜索内容：" + query, Toast.LENGTH_SHORT).show();
+                if (query.length() > 0) {
+                    Toast.makeText(getContext(), "搜索内容：" + query, Toast.LENGTH_SHORT).show();
+                    //添加记录至本地文件
+                    boolean flag = FilePersistenceIO.addHeadDistinct(getContext(), query, "searchrecords");
+
+                    //若文件中存在当前搜索记录
+                    if (!flag) {
+                        //先将记录移除
+                        homeViewModel.removeSearchRecord(query);
+                    }
+                    //再将记录添加到头部
+                    homeViewModel.addSearchRecord(query);
+                    adapter.notifyDataSetChanged();
+
+                    return true;
+                }
                 return false;
             }
 

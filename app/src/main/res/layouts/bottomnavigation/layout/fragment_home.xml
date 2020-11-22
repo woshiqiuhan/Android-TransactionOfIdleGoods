@@ -20,6 +20,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_search"
             android:gravity="center"
+            android:queryBackground="@null"
             android:iconifiedByDefault="false"
             android:queryHint="请输入搜索内容" />
     </androidx.appcompat.widget.Toolbar>
