@@ -2,7 +2,6 @@ package com.hznu.transactionofidlegoods.bottomnavigation;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -10,8 +9,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hznu.transactionofidlegoods.R;
+import com.hznu.transactionofidlegoods.utils.BaseActivity;
 
-public class BottonNavigationActivity extends AppCompatActivity {
+public class BottonNavigationActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TransactionOfIdleGoods">
         <activity
+            android:name=".login.ui.login.LoginActivity"
+            android:label="@string/title_activity_login"></activity>
+        <activity
             android:name=".bottomnavigation.BottonNavigationActivity"
-            android:label="@string/title_activity_botton_navigation"></activity>
+            android:label="@string/title_activity_botton_navigation" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

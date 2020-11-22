@@ -8,4 +8,10 @@
         android:layout_height="wrap_content"
         android:text="Hey Man!"
         android:id="@+id/btn_heyMan"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请先登录!"
+        android:id="@+id/btn_login"/>
 </LinearLayout>
