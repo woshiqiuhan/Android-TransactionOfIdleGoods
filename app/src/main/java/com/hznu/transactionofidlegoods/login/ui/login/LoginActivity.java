@@ -1,8 +1,11 @@
 package com.hznu.transactionofidlegoods.login.ui.login;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.hznu.transactionofidlegoods.R;
 import com.hznu.transactionofidlegoods.bottomnavigation.BottonNavigationActivity;
 import com.hznu.transactionofidlegoods.utils.BaseActivity;
+import com.hznu.transactionofidlegoods.utils.IdentifyingCodeUtils;
 import com.hznu.transactionofidlegoods.utils.SharePreferencesUtil;
 
 public class LoginActivity extends BaseActivity {
@@ -33,7 +38,11 @@ public class LoginActivity extends BaseActivity {
     private EditText passwordEditText;
     private Button loginButton;
     private Button registerButton;
+    private EditText identifyingCodeEditText;
+    private ImageView identifyingCodeImageView;
     private ProgressBar loadingProgressBar;
+    private Bitmap identifyingCodeBitmap;
+    private String identifyingCode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +56,8 @@ public class LoginActivity extends BaseActivity {
         loginButton = (Button) findViewById(R.id.btn_login);
         registerButton = (Button) findViewById(R.id.btn_register);
         loadingProgressBar = (ProgressBar) findViewById(R.id.loading);
+        identifyingCodeEditText = (EditText) findViewById(R.id.edtTxt_identifyingCode);
+        identifyingCodeImageView = (ImageView) findViewById(R.id.iv_identifyingCode);
 
         //隐藏系统自带顶部状态栏
         ActionBar supportActionBar = getSupportActionBar();
@@ -63,6 +74,22 @@ public class LoginActivity extends BaseActivity {
             //将登录信息传至后台校验
             loginViewModel.login(localUsername, localPassword);
         }
+
+        //获取工具类生成的图片验证码对象
+        identifyingCodeBitmap = IdentifyingCodeUtils.getInstance().createBitmap();
+        //获取当前图片验证码的对应内容用于校验
+        identifyingCode = IdentifyingCodeUtils.getInstance().getCode();
+
+        identifyingCodeImageView.setImageBitmap(identifyingCodeBitmap);
+        identifyingCodeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                identifyingCodeBitmap = IdentifyingCodeUtils.getInstance().createBitmap();
+                identifyingCode = IdentifyingCodeUtils.getInstance().getCode();
+                identifyingCodeImageView.setImageBitmap(identifyingCodeBitmap);
+                Toast.makeText(LoginActivity.this, "验证码修改成功", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         //观察登录表单的数据验证状态(此处代表简单表单验证)
@@ -158,10 +185,28 @@ public class LoginActivity extends BaseActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //简单表单校验无误后按下按钮，显示进度条
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                //将登录信息传至后台校验
-                loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                if (identifyingCodeEditText.getText().toString().equalsIgnoreCase(identifyingCode)) {
+                    //验证码正确才进行登录
+                    //简单表单校验无误后按下按钮，显示进度条
+                    loadingProgressBar.setVisibility(View.VISIBLE);
+                    //将登录信息传至后台校验
+                    loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                } else {
+                    //创建弹窗
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
+                    dialog.setTitle("提示");
+                    dialog.setMessage("验证码不正确！");
+                    dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    dialog.show();
+                    //刷新验证码
+                    identifyingCodeBitmap = IdentifyingCodeUtils.getInstance().createBitmap();
+                    identifyingCode = IdentifyingCodeUtils.getInstance().getCode();
+                    identifyingCodeImageView.setImageBitmap(identifyingCodeBitmap);
+                }
             }
         });
 

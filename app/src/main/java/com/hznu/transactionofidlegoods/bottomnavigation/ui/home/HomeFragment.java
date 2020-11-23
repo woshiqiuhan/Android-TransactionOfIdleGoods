@@ -29,9 +29,9 @@ public class HomeFragment extends Fragment {
     // 数据的列表，即搜索下拉框列表元素，后从数据库获取
     private List<String> searchRecords;
 
-    private SearchView searchViewHome;
-    private ListPopupWindow listPopupWindowSearchRecords;
-    private Toolbar toolbar;
+    private SearchView homeFragmentSearchView;
+    private ListPopupWindow searchRecordsListPopupWindow;
+    private Toolbar homeFragmentHeadToolbar;
 
     private HomeViewModel homeViewModel;
 
@@ -43,24 +43,24 @@ public class HomeFragment extends Fragment {
         searchRecords = homeViewModel.getSearchRecords(getContext());
 
         //根据id获取控件
-        searchViewHome = (SearchView) root.findViewById(R.id.searchView_homeSearch);
-        searchViewHome.setSubmitButtonEnabled(true); //设置右端搜索键显示
-        toolbar = (Toolbar) root.findViewById(R.id.toolbar_homeSearch);
+        homeFragmentSearchView = (SearchView) root.findViewById(R.id.searchView_homeSearch);
+        homeFragmentSearchView.setSubmitButtonEnabled(true); //设置右端搜索键显示
+        homeFragmentHeadToolbar = (Toolbar) root.findViewById(R.id.toolbar_homeSearch);
         //创建下拉列表
-        listPopupWindowSearchRecords = new ListPopupWindow(getContext());
+        searchRecordsListPopupWindow = new ListPopupWindow(getContext());
         //创建下拉列表数据项
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, searchRecords);
         //绑定下拉列表数据
-        listPopupWindowSearchRecords.setAdapter(adapter);
+        searchRecordsListPopupWindow.setAdapter(adapter);
         //绑定锚点，从什么控件下开始展开
-        listPopupWindowSearchRecords.setAnchorView(searchViewHome);
+        searchRecordsListPopupWindow.setAnchorView(homeFragmentSearchView);
         //为每项数据项绑定事件
-        listPopupWindowSearchRecords.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        searchRecordsListPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listPopupWindowSearchRecords.dismiss();  //隐藏下拉框
+                searchRecordsListPopupWindow.dismiss();  //隐藏下拉框
                 //设置searchViewHome内部text
-                searchViewHome.setQuery(searchRecords.get(position), true);
+                homeFragmentSearchView.setQuery(searchRecords.get(position), true);
             }
         });
 
@@ -73,24 +73,24 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void keyBoardHide(int height) {
-                searchViewHome.clearFocus(); //去除搜索框焦点
+                homeFragmentSearchView.clearFocus(); //去除搜索框焦点
 //                Toast.makeText(getContext(), "键盘隐藏 高度" + height, Toast.LENGTH_SHORT).show();
             }
         });
 
         //监听搜索框被选中，即force监听
-        searchViewHome.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+        homeFragmentSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    listPopupWindowSearchRecords.show();
+                    searchRecordsListPopupWindow.show();
 
                     /**
                      * 设置长按删除记录功能
                      * 1、首先获取ListPopupWindow中的ListView
                      * 2、然后添加OnItemLongClickListener事件
                      */
-                    ListView listView = listPopupWindowSearchRecords.getListView();
+                    ListView listView = searchRecordsListPopupWindow.getListView();
                     if (listView != null) {
                         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                             @Override
@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment {
                                             adapter.notifyDataSetChanged();
                                             FilePersistenceUtil.remove(getContext(), record, "searchrecords");
 
-                                            searchViewHome.setQuery("", false);
+                                            homeFragmentSearchView.setQuery("", false);
                                             Toast.makeText(getContext(), "删除成功！", Toast.LENGTH_SHORT).show();
                                         } catch (Exception ex) {
                                             Toast.makeText(getContext(), "删除失败！", Toast.LENGTH_SHORT).show();
@@ -134,16 +134,16 @@ public class HomeFragment extends Fragment {
                         });
                     }
                 } else {
-                    listPopupWindowSearchRecords.dismiss();
+                    searchRecordsListPopupWindow.dismiss();
                 }
             }
         });
 
-        searchViewHome.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        homeFragmentSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String query) {  //输入关键字后按下搜索键触发
-                searchViewHome.clearFocus();
+                homeFragmentSearchView.clearFocus();
                 if (query.length() > 0) {
                     Toast.makeText(getContext(), "搜索内容：" + query, Toast.LENGTH_SHORT).show();
                     //添加记录至本地文件
