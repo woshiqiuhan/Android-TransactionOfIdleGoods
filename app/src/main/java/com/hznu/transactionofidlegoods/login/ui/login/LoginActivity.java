@@ -41,9 +41,9 @@ public class LoginActivity extends BaseActivity {
 
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory()).get(LoginViewModel.class);
 
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
+        final EditText usernameEditText = findViewById(R.id.edtTxt_username);
+        final EditText passwordEditText = findViewById(R.id.edtTxt_password);
+        final Button loginButton = findViewById(R.id.btn_login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         //观察登录表单的数据验证状态(此处代表简单表单验证)

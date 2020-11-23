@@ -16,6 +16,9 @@ import java.io.OutputStreamWriter;
  */
 public class FilePersistenceIO {
 
+    //搜索记录文件名
+    public static final String SREARCH_RECORDS_FILE_NAME = "searchrecords";
+
     //将数据存入对应文件中
     //覆盖原有内容
     public static void save(Context content, String str, String fileName) {
@@ -76,6 +79,22 @@ public class FilePersistenceIO {
             return true;
         }
         return false;
+    }
+
+    //删除某条记录
+    public static void remove(Context content, String str, String fileName) {
+        StringBuilder strb = new StringBuilder();
+        try {
+            String[] splits = load(content, fileName).split("\n");
+            for (String split : splits) {
+                if (!split.equals(str)) {
+                    strb.append(split + "\n");
+                }
+            }
+            save(content, strb.toString(), fileName);
+        } catch (Exception ex) {
+            save(content, str, fileName);
+        }
     }
 
     //读取对应文件的内容

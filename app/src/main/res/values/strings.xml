@@ -13,7 +13,9 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">登录邮箱/电话号码</string>
     <string name="prompt_password">密码</string>
+    <string name="prompt_identifying_code">验证码</string>
     <string name="action_sign_in">登录</string>
+    <string name="action_register">注册</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">欢迎登录！</string>
     <string name="invalid_username">输入用户名不合法</string>

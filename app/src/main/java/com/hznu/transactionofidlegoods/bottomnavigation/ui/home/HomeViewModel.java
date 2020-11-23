@@ -2,8 +2,6 @@ package com.hznu.transactionofidlegoods.bottomnavigation.ui.home;
 
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.hznu.transactionofidlegoods.utils.FilePersistenceIO;
@@ -20,15 +18,16 @@ public class HomeViewModel extends ViewModel {
     public HomeViewModel() {
     }
 
-    //从文件中读取搜索记录
+    //从文件中读取搜索记录，并返回
     public List<String> getSearchRecords(Context context) {
         initSearchRecords(context);
         return this.searchRecords;
     }
 
+    //初始化搜索记录
     private void initSearchRecords(Context context) {
         try {
-            searchRecords = new LinkedList<>(Arrays.asList(FilePersistenceIO.load(context, "searchrecords").split("\n")));
+            searchRecords = new LinkedList<>(Arrays.asList(FilePersistenceIO.load(context, FilePersistenceIO.SREARCH_RECORDS_FILE_NAME).split("\n")));
         } catch (Exception e) {
             e.getStackTrace();
         }
