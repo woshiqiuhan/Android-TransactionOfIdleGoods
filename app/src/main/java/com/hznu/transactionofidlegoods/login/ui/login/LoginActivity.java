@@ -2,6 +2,7 @@ package com.hznu.transactionofidlegoods.login.ui.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,15 +24,29 @@ import androidx.lifecycle.ViewModelProvider;
 import com.hznu.transactionofidlegoods.R;
 import com.hznu.transactionofidlegoods.bottomnavigation.BottonNavigationActivity;
 import com.hznu.transactionofidlegoods.utils.BaseActivity;
+import com.hznu.transactionofidlegoods.utils.SharePreferencesUtil;
 
 public class LoginActivity extends BaseActivity {
 
     private LoginViewModel loginViewModel;
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+    private Button loginButton;
+    private Button registerButton;
+    private ProgressBar loadingProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory()).get(LoginViewModel.class);
+
+        usernameEditText = (EditText) findViewById(R.id.edtTxt_username);
+        passwordEditText = (EditText) findViewById(R.id.edtTxt_password);
+        loginButton = (Button) findViewById(R.id.btn_login);
+        registerButton = (Button) findViewById(R.id.btn_register);
+        loadingProgressBar = (ProgressBar) findViewById(R.id.loading);
 
         //隐藏系统自带顶部状态栏
         ActionBar supportActionBar = getSupportActionBar();
@@ -39,12 +54,16 @@ public class LoginActivity extends BaseActivity {
             supportActionBar.hide();
         }
 
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory()).get(LoginViewModel.class);
+        //判断本地是否缓存了用户账号密码，如果缓存即直接登录否则跳转到登录界面
+        SharedPreferences userinformation = getSharedPreferences(SharePreferencesUtil.USER_INFORMATION_FILE, MODE_PRIVATE);
+        String localUsername = userinformation.getString("username", null);
+        String localPassword = userinformation.getString("password", null);
+        if (localUsername != null && localPassword != null) {
+            loadingProgressBar.setVisibility(View.VISIBLE);
+            //将登录信息传至后台校验
+            loginViewModel.login(localUsername, localPassword);
+        }
 
-        final EditText usernameEditText = findViewById(R.id.edtTxt_username);
-        final EditText passwordEditText = findViewById(R.id.edtTxt_password);
-        final Button loginButton = findViewById(R.id.btn_login);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         //观察登录表单的数据验证状态(此处代表简单表单验证)
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -79,20 +98,24 @@ public class LoginActivity extends BaseActivity {
                     showLoginFailed(loginResult.getError());
                 }
                 if (loginResult.getSuccess() != null) {  //信息核对成功处理
+
+                    //存储此次用户登录信息到本地
+                    SharePreferencesUtil.save(LoginActivity.this,
+                            usernameEditText.getText().toString(),
+                            passwordEditText.getText().toString(),
+                            SharePreferencesUtil.USER_INFORMATION_FILE);
+
                     updateUiWithUser(loginResult.getSuccess());
 
-                    Toast.makeText(LoginActivity.this, "Hey Man!", Toast.LENGTH_SHORT).show();
-
+                    //跳转主页面
                     Intent intent = new Intent(LoginActivity.this, BottonNavigationActivity.class);
                     startActivity(intent);
 
                     setResult(Activity.RESULT_OK);
 
-                    //Complete and destroy login activity once successful
                     //成功后完成并销毁登录活动
                     finish();
                 }
-
             }
         });
 
@@ -141,11 +164,19 @@ public class LoginActivity extends BaseActivity {
                 loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
             }
         });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharePreferencesUtil.clear(LoginActivity.this, SharePreferencesUtil.USER_INFORMATION_FILE);
+            }
+        });
     }
 
     //登录成功处理方法
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
+
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_SHORT).show();
     }

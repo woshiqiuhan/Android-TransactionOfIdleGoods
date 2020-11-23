@@ -14,7 +14,7 @@ import java.io.OutputStreamWriter;
 /**
  * 安卓本地文件存取
  */
-public class FilePersistenceIO {
+public class FilePersistenceUtil {
 
     //搜索记录文件名
     public static final String SREARCH_RECORDS_FILE_NAME = "searchrecords";

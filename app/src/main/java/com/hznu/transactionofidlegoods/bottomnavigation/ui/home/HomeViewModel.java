@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.lifecycle.ViewModel;
 
-import com.hznu.transactionofidlegoods.utils.FilePersistenceIO;
+import com.hznu.transactionofidlegoods.utils.FilePersistenceUtil;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -27,7 +27,7 @@ public class HomeViewModel extends ViewModel {
     //初始化搜索记录
     private void initSearchRecords(Context context) {
         try {
-            searchRecords = new LinkedList<>(Arrays.asList(FilePersistenceIO.load(context, FilePersistenceIO.SREARCH_RECORDS_FILE_NAME).split("\n")));
+            searchRecords = new LinkedList<>(Arrays.asList(FilePersistenceUtil.load(context, FilePersistenceUtil.SREARCH_RECORDS_FILE_NAME).split("\n")));
         } catch (Exception e) {
             e.getStackTrace();
         }

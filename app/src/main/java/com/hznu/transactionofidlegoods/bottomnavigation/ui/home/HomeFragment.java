@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hznu.transactionofidlegoods.R;
-import com.hznu.transactionofidlegoods.utils.FilePersistenceIO;
+import com.hznu.transactionofidlegoods.utils.FilePersistenceUtil;
 import com.hznu.transactionofidlegoods.utils.SoftKeyBoardListener;
 
 import java.util.List;
@@ -108,7 +108,7 @@ public class HomeFragment extends Fragment {
                                         try {
                                             homeViewModel.removeSearchRecord(record);
                                             adapter.notifyDataSetChanged();
-                                            FilePersistenceIO.remove(getContext(), record, "searchrecords");
+                                            FilePersistenceUtil.remove(getContext(), record, "searchrecords");
 
                                             searchViewHome.setQuery("", false);
                                             Toast.makeText(getContext(), "删除成功！", Toast.LENGTH_SHORT).show();
@@ -147,7 +147,7 @@ public class HomeFragment extends Fragment {
                 if (query.length() > 0) {
                     Toast.makeText(getContext(), "搜索内容：" + query, Toast.LENGTH_SHORT).show();
                     //添加记录至本地文件
-                    boolean flag = FilePersistenceIO.addHeadDistinct(getContext(), query, FilePersistenceIO.SREARCH_RECORDS_FILE_NAME);
+                    boolean flag = FilePersistenceUtil.addHeadDistinct(getContext(), query, FilePersistenceUtil.SREARCH_RECORDS_FILE_NAME);
 
                     //若文件中存在当前搜索记录
                     if (!flag) {
