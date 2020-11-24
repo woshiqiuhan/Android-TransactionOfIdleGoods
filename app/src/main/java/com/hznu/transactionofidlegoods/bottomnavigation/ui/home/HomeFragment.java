@@ -3,9 +3,11 @@ package com.hznu.transactionofidlegoods.bottomnavigation.ui.home;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListPopupWindow;
@@ -17,11 +19,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.hznu.transactionofidlegoods.R;
+import com.hznu.transactionofidlegoods.domain.IdleProperty;
 import com.hznu.transactionofidlegoods.utils.FilePersistenceUtil;
+import com.hznu.transactionofidlegoods.utils.IdlePropertyAdapter;
+import com.hznu.transactionofidlegoods.utils.ScreenUtil;
 import com.hznu.transactionofidlegoods.utils.SoftKeyBoardListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -29,8 +37,12 @@ public class HomeFragment extends Fragment {
     // 数据的列表，即搜索下拉框列表元素，后从数据库获取
     private List<String> searchRecords;
 
+    //闲置物列表
+    public List<IdleProperty> idleProperties;
+
     private SearchView homeFragmentSearchView;
     private ListPopupWindow searchRecordsListPopupWindow;
+    private RecyclerView idlePropertyRecyclerView;
     private Toolbar homeFragmentHeadToolbar;
 
     private HomeViewModel homeViewModel;
@@ -53,7 +65,11 @@ public class HomeFragment extends Fragment {
         //绑定下拉列表数据
         searchRecordsListPopupWindow.setAdapter(adapter);
         //绑定锚点，从什么控件下开始展开
-        searchRecordsListPopupWindow.setAnchorView(homeFragmentSearchView);
+        searchRecordsListPopupWindow.setAnchorView(homeFragmentHeadToolbar);
+
+        searchRecordsListPopupWindow.setHeight(ScreenUtil.getScreenHeight(getContext()) / 2);
+
+        searchRecordsListPopupWindow.setModal(false);
         //为每项数据项绑定事件
         searchRecordsListPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -122,12 +138,6 @@ public class HomeFragment extends Fragment {
                                     public void onClick(DialogInterface dialog, int which) {
                                     }
                                 });*/
-
-                                /*dialog.setNeutralButton("取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                });*/
                                 dialog.show();
                                 return true; //返回true表示长按过后的震动效果
                             }
@@ -164,10 +174,46 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {  //可用于进行关键字筛选
+            public boolean onQueryTextChange(String query) {  //可用于进行关键字筛选
+                query.toLowerCase();
+                searchRecordsListPopupWindow.show();
+                if (TextUtils.isEmpty(query)) {
+                    // 清除ListView的过滤
+
+                    searchRecordsListPopupWindow.setAdapter(adapter);
+                } else {
+                    List<String> recordsFilter = new ArrayList<>();
+                    for (String searchRecord : searchRecords) {
+                        String s = new String(searchRecord);
+                        if (s.toLowerCase().contains(query)) {
+                            recordsFilter.add(searchRecord);
+                        }
+                    }
+                    if (recordsFilter.size() >= 0) {
+                        searchRecordsListPopupWindow.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, recordsFilter));
+                    }
+                }
                 return true;
             }
         });
+
+        init();
+        idlePropertyRecyclerView = (RecyclerView) root.findViewById(R.id.rv_idleProperty);
+//        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        idlePropertyRecyclerView.setLayoutManager(manager);
+        IdlePropertyAdapter idlePropertyAdapter = new IdlePropertyAdapter(idleProperties);
+        idlePropertyRecyclerView.setAdapter(idlePropertyAdapter);
         return root;
+    }
+
+    public void init() {
+        idleProperties = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            idleProperties.add(new IdleProperty("口罩", R.drawable.kouzhao));
+            idleProperties.add(new IdleProperty("防护服", R.drawable.fanghufu));
+            idleProperties.add(new IdleProperty("榻榻米", R.drawable.tatami));
+            idleProperties.add(new IdleProperty("护目镜", R.drawable.humujing));
+        }
     }
 }
