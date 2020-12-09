@@ -1,15 +1,13 @@
 package com.hznu.transactionofidlegoods;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 
-import com.hznu.transactionofidlegoods.login.ui.login.LoginActivity;
+import com.hznu.transactionofidlegoods.login.LoginActivity;
 import com.hznu.transactionofidlegoods.utils.BaseActivity;
-import com.hznu.transactionofidlegoods.utils.SharePreferencesUtil;
 
 public class MainActivity extends BaseActivity {
 

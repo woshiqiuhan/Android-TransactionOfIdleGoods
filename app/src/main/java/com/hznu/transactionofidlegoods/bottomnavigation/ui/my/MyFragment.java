@@ -6,19 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.hznu.transactionofidlegoods.MainActivity;
 import com.hznu.transactionofidlegoods.R;
-import com.hznu.transactionofidlegoods.login.ui.login.LoginActivity;
-import com.hznu.transactionofidlegoods.utils.SharePreferencesUtil;
+import com.hznu.transactionofidlegoods.login.LoginActivity;
+import com.hznu.transactionofidlegoods.utils.SharePreferencesUtils;
 
 public class MyFragment extends Fragment {
 
@@ -36,7 +32,7 @@ public class MyFragment extends Fragment {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharePreferencesUtil.clear(getContext(), SharePreferencesUtil.USER_INFORMATION_FILE);
+                SharePreferencesUtils.clear(getContext(), SharePreferencesUtils.USER_INFORMATION_FILE);
 
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);

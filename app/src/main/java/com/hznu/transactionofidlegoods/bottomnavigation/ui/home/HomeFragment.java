@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListPopupWindow;
@@ -24,9 +23,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.hznu.transactionofidlegoods.R;
 import com.hznu.transactionofidlegoods.domain.IdleProperty;
-import com.hznu.transactionofidlegoods.utils.FilePersistenceUtil;
+import com.hznu.transactionofidlegoods.utils.FilePersistenceUtils;
 import com.hznu.transactionofidlegoods.utils.IdlePropertyAdapter;
-import com.hznu.transactionofidlegoods.utils.ScreenUtil;
+import com.hznu.transactionofidlegoods.utils.ScreenUtils;
 import com.hznu.transactionofidlegoods.utils.SoftKeyBoardListener;
 
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class HomeFragment extends Fragment {
         //绑定锚点，从什么控件下开始展开
         searchRecordsListPopupWindow.setAnchorView(homeFragmentHeadToolbar);
 
-        searchRecordsListPopupWindow.setHeight(ScreenUtil.getScreenHeight(getContext()) / 2);
+        searchRecordsListPopupWindow.setHeight(ScreenUtils.getScreenHeight(getContext()) / 2);
 
         searchRecordsListPopupWindow.setModal(false);
         //为每项数据项绑定事件
@@ -124,7 +123,7 @@ public class HomeFragment extends Fragment {
                                         try {
                                             homeViewModel.removeSearchRecord(record);
                                             adapter.notifyDataSetChanged();
-                                            FilePersistenceUtil.remove(getContext(), record, "searchrecords");
+                                            FilePersistenceUtils.remove(getContext(), record, "searchrecords");
 
                                             homeFragmentSearchView.setQuery("", false);
                                             Toast.makeText(getContext(), "删除成功！", Toast.LENGTH_SHORT).show();
@@ -157,7 +156,7 @@ public class HomeFragment extends Fragment {
                 if (query.length() > 0) {
                     Toast.makeText(getContext(), "搜索内容：" + query, Toast.LENGTH_SHORT).show();
                     //添加记录至本地文件
-                    boolean flag = FilePersistenceUtil.addHeadDistinct(getContext(), query, FilePersistenceUtil.SREARCH_RECORDS_FILE_NAME);
+                    boolean flag = FilePersistenceUtils.addHeadDistinct(getContext(), query, FilePersistenceUtils.SREARCH_RECORDS_FILE_NAME);
 
                     //若文件中存在当前搜索记录
                     if (!flag) {

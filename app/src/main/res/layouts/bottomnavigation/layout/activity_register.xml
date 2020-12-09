@@ -2,17 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".login.LoginActivity">
+    tools:context=".register.RegisterActivity">
 
     <ImageView
-        android:id="@+id/iv_login_myIcon"
+        android:id="@+id/iv_register_myIcon"
         android:background="@drawable/ic_myicon"
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -24,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_login_appName"
+        android:id="@+id/tv_register_appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
@@ -32,24 +31,24 @@
         android:hint="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_login_myIcon" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_register_myIcon" />
 
     <EditText
-        android:id="@+id/edtTxt_login_userloginid"
+        android:id="@+id/edtTxt_register_user_login_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="86dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/user_login_id"
         android:inputType="text"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_login_appName" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_register_appName" />
 
     <EditText
-        android:id="@+id/edtTxt_login_password"
+        android:id="@+id/edtTxt_register_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -61,55 +60,67 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxt_login_userloginid" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxt_register_user_login_id" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/edtTxt_register_repeat_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:hint="确认密码"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxt_login_password">
-        <EditText
-            android:id="@+id/edtTxt_login_identifyingCode"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:maxLength="4"
-            android:hint="@string/user_identifying_code"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"/>
-        <ImageView
-            android:id="@+id/iv_login_identifyingCode"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/edtTxt_register_password" />
 
-    <Button
-        android:id="@+id/btn_login_login"
-        android:layout_width="200dp"
+    <EditText
+        android:id="@+id/edtTxt_register_username"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="-30dp"
-        android:enabled="false"
-        android:text="@string/action_sign_in"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:hint="用户名"
+        android:inputType="text"
+        android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxt_login_password"
-        app:layout_constraintVertical_bias="0.243" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxt_register_repeat_password" />
+
+    <EditText
+        android:id="@+id/edtTxt_register_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:hint="邮箱"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTxt_register_username" />
+
+    <EditText
+        android:id="@+id/edtTxt_register_phone_num"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:hint="电话号码"
+        android:inputType="phone"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTxt_register_email" />
 
     <Button
-        android:id="@+id/btn_login_register"
+        android:id="@+id/btn_register_register"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -122,11 +133,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login_login"
         app:layout_constraintVertical_bias="0.04" />
 
     <ProgressBar
-        android:id="@+id/login_loading"
+        android:id="@+id/register_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -136,9 +146,8 @@
         android:layout_marginBottom="64dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/edtTxt_login_password"
-        app:layout_constraintStart_toStartOf="@+id/edtTxt_login_password"
+        app:layout_constraintEnd_toEndOf="@+id/edtTxt_register_password"
+        app:layout_constraintStart_toStartOf="@+id/edtTxt_register_password"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

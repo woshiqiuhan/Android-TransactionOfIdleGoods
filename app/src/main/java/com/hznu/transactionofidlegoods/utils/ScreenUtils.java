@@ -2,7 +2,7 @@ package com.hznu.transactionofidlegoods.utils;
 
 import android.content.Context;
 
-public class ScreenUtil {
+public class ScreenUtils {
 
     /**
      * 得到设备屏幕的宽度

@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 /**
  * 用与存储用户信息及注销时删除用户信息
  */
-public class SharePreferencesUtil {
+public class SharePreferencesUtils {
 
     //存储用户用户名密码的共享文件
     public static final  String USER_INFORMATION_FILE = "userinformation";
