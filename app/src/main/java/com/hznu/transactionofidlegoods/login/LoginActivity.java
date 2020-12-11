@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,11 +18,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 
+import com.alibaba.fastjson.JSON;
 import com.hznu.transactionofidlegoods.R;
+import com.hznu.transactionofidlegoods.bottomnavigation.BottonNavigationActivity;
+import com.hznu.transactionofidlegoods.domain.User;
 import com.hznu.transactionofidlegoods.register.RegisterActivity;
+import com.hznu.transactionofidlegoods.service.GetUserInfo;
+import com.hznu.transactionofidlegoods.service.UserLogin;
 import com.hznu.transactionofidlegoods.utils.BaseActivity;
 import com.hznu.transactionofidlegoods.utils.IdentifyingCodeUtils;
+import com.hznu.transactionofidlegoods.utils.MD5Util;
 import com.hznu.transactionofidlegoods.utils.SharePreferencesUtils;
+
+import java.util.Map;
 
 public class LoginActivity extends BaseActivity {
 
@@ -91,12 +100,41 @@ public class LoginActivity extends BaseActivity {
 
         //判断本地是否缓存了用户账号密码，如果缓存即直接登录否则跳转到登录界面
         SharedPreferences userinformation = getSharedPreferences(SharePreferencesUtils.USER_INFORMATION_FILE, MODE_PRIVATE);
-        String localUsername = userinformation.getString("username", null);
-        String localPassword = userinformation.getString("password", null);
-        if (localUsername != null && localPassword != null) {
+        String localUserLoginId = userinformation.getString("userLoginId", null);
+        String localUserPassword = userinformation.getString("userPassword", null);
+        if (localUserLoginId != null && localUserPassword != null) {
             loadingProgressBar.setVisibility(View.VISIBLE);
-            // 登录
+            boolean login = UserLogin.login(localUserLoginId, localUserPassword);
+            if (login) {
+                Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_SHORT).show();
 
+                //跳转主页面
+                Intent intent = new Intent(LoginActivity.this, BottonNavigationActivity.class);
+                startActivity(intent);
+            } else {
+                loadingProgressBar.setVisibility(View.INVISIBLE);
+                //更新验证码图片
+                identifyingCodeBitmap = IdentifyingCodeUtils.getInstance().createBitmap();
+                identifyingCode = IdentifyingCodeUtils.getInstance().getCode();
+                identifyingCodeImageView.setImageBitmap(identifyingCodeBitmap);
+                identifyingCodeEditText.setText("");
+                passwordEditText.setText("");
+
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
+                dialog.setTitle("警告");
+                dialog.setMessage("登录账号或密码不正确！");
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                dialog.show();
+            }
+
+            //跳转主页面
+            Intent intent = new Intent(LoginActivity.this, BottonNavigationActivity.class);
+            startActivity(intent);
         }
 
         //获取工具类生成的图片验证码对象
@@ -111,7 +149,7 @@ public class LoginActivity extends BaseActivity {
                 identifyingCodeBitmap = IdentifyingCodeUtils.getInstance().createBitmap();
                 identifyingCode = IdentifyingCodeUtils.getInstance().getCode();
                 identifyingCodeImageView.setImageBitmap(identifyingCodeBitmap);
-                Toast.makeText(LoginActivity.this, "验证码修改成功", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "验证码修改成功", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -119,30 +157,69 @@ public class LoginActivity extends BaseActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (identifyingCodeEditText.getText().toString().equalsIgnoreCase(identifyingCode) &&
-                        !userloginidEditText.getText().toString().isEmpty() &&
-                        !passwordEditText.getText().toString().isEmpty() &&
-                        userloginidEditText.getError() == null &&
-                        passwordEditText.getError() == null) {
-                    //验证码正确才进行登录
-                    //简单表单校验无误后按下按钮，显示进度条
-                    loadingProgressBar.setVisibility(View.VISIBLE);
+                if (identifyingCodeEditText.getText().toString().equalsIgnoreCase(identifyingCode)) {
+                    if (!userloginidEditText.getText().toString().isEmpty() &&
+                            !passwordEditText.getText().toString().isEmpty() &&
+                            userloginidEditText.getError() == null &&
+                            passwordEditText.getError() == null) {
+                        //验证码正确才进行登录
+                        //简单表单校验无误后按下按钮，显示进度条
+                        loadingProgressBar.setVisibility(View.VISIBLE);
 
-                    //进行登录
-/*
-        //存储此次用户登录信息到本地
-                    SharePreferencesUtils.save(LoginActivity.this,
-                            userloginidEditText.getText().toString(),
-                            passwordEditText.getText().toString(),
-                            SharePreferencesUtils.USER_INFORMATION_FILE);
+                        //进行登录
+
+                        boolean login = UserLogin.login(userloginidEditText.getText().toString(), MD5Util.getMD5Str(passwordEditText.getText().toString()));
+                        if (login) {
+                            Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_SHORT).show();
+
+                            //获取用户信息
+                            String userInfo = GetUserInfo.getUserInfo(userloginidEditText.getText().toString());
+
+                            //存储此次用户登录信息到本地
+                            SharePreferencesUtils.save(LoginActivity.this,
+                                    new User((Map<Object, Object>) JSON.parse(userInfo)),
+                                    SharePreferencesUtils.USER_INFORMATION_FILE);
+
+                            //跳转主页面
+                            Intent intent = new Intent(LoginActivity.this, BottonNavigationActivity.class);
+                            startActivity(intent);
+                        } else {
+                            loadingProgressBar.setVisibility(View.INVISIBLE);
+                            //更新验证码图片
+                            identifyingCodeBitmap = IdentifyingCodeUtils.getInstance().createBitmap();
+                            identifyingCode = IdentifyingCodeUtils.getInstance().getCode();
+                            identifyingCodeImageView.setImageBitmap(identifyingCodeBitmap);
+                            identifyingCodeEditText.setText("");
+                            passwordEditText.setText("");
 
 
-                    //跳转主页面
-                    Intent intent = new Intent(LoginActivity.this, BottonNavigationActivity.class);
-                    startActivity(intent);
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
+                            dialog.setTitle("警告");
+                            dialog.setMessage("登录账号或密码不正确！");
+                            dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            dialog.show();
+                        }
+                    } else {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
+                        dialog.setTitle("警告");
+                        dialog.setMessage("登录账号和密码不能为空！请检查");
+                        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        dialog.show();
 
-                    setResult(Activity.RESULT_OK);*/
-
+                        //刷新验证码
+                        identifyingCodeBitmap = IdentifyingCodeUtils.getInstance().createBitmap();
+                        identifyingCode = IdentifyingCodeUtils.getInstance().getCode();
+                        identifyingCodeImageView.setImageBitmap(identifyingCodeBitmap);
+                        identifyingCodeEditText.setText("");
+                    }
                 } else {
                     //创建弹窗
                     AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
@@ -154,10 +231,13 @@ public class LoginActivity extends BaseActivity {
                         }
                     });
                     dialog.show();
+
                     //刷新验证码
                     identifyingCodeBitmap = IdentifyingCodeUtils.getInstance().createBitmap();
                     identifyingCode = IdentifyingCodeUtils.getInstance().getCode();
                     identifyingCodeImageView.setImageBitmap(identifyingCodeBitmap);
+                    identifyingCodeEditText.setText("");
+                    passwordEditText.setText("");
                 }
             }
         });
