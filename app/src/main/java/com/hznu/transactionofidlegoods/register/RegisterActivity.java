@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +19,22 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 
+import com.alibaba.fastjson.JSON;
 import com.hznu.transactionofidlegoods.R;
+import com.hznu.transactionofidlegoods.bottomnavigation.BottonNavigationActivity;
+import com.hznu.transactionofidlegoods.domain.User;
+import com.hznu.transactionofidlegoods.login.LoginActivity;
+import com.hznu.transactionofidlegoods.service.GetUserInfo;
+import com.hznu.transactionofidlegoods.service.UserRegister;
 import com.hznu.transactionofidlegoods.utils.BaseActivity;
 import com.hznu.transactionofidlegoods.utils.FilePersistenceUtils;
+import com.hznu.transactionofidlegoods.utils.IdentifyingCodeUtils;
+import com.hznu.transactionofidlegoods.utils.MD5Util;
+import com.hznu.transactionofidlegoods.utils.SharePreferencesUtils;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Map;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -177,6 +192,30 @@ public class RegisterActivity extends BaseActivity {
                         useremailEditText.getError() == null &&
                         phonenumEditText.getError() == null) {
                     loadingProgressBar.setVisibility(View.VISIBLE);
+                    User user = new User(userloginidEditText.getText().toString(), MD5Util.getMD5Str(passwordEditText.getText().toString()),
+                            usernameEditText.getText().toString(), useremailEditText.getText().toString(),
+                            phonenumEditText.getText().toString());
+
+                    boolean register = UserRegister.register(user);
+                    if (register) {
+                        Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+
+                        //跳转主页面
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    } else {
+                        loadingProgressBar.setVisibility(View.INVISIBLE);
+
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);
+                        dialog.setTitle("警告");
+                        dialog.setMessage("注册失败！用户账号已存在！");
+                        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        dialog.show();
+                    }
 
                 } else {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);

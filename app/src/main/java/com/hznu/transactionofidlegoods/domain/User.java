@@ -48,6 +48,14 @@ public class User {
         this.userStatus = userStatus;
     }
 
+    public User(String userLoginId, String userPassword, String userName, String userEmail, String userPhoneNum) {
+        this.userLoginId = userLoginId;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.userPhoneNum = userPhoneNum;
+        this.userEmail = userEmail;
+    }
+
     public User(Map<Object, Object> mp) {
         this.userId = (String) mp.get("userId");
         this.userLoginId = (String) mp.get("userLoginId");
