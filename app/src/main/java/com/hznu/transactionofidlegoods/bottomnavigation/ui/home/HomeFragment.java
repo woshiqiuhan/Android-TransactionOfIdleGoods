@@ -202,9 +202,6 @@ public class HomeFragment extends Fragment {
         });
 
         idleGoodsInfoList = GetIdleGoodsInfoList.getIdleGoodsInfoList();
-        for (IdleGoods goods : idleGoodsInfoList) {
-            Log.d("IdleGoodsInfoList", goods.getGoodsCoverImgDir());
-        }
 
         idlePropertyRecyclerView = (RecyclerView) root.findViewById(R.id.rv_idleProperty);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
