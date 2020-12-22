@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="@drawable/border"
     android:layout_margin="5dp">
 
@@ -16,7 +16,7 @@
     tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tv_idlePropertyTitle"
+        android:id="@+id/tv_idleGoodsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"

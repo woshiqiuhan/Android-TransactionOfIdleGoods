@@ -27,7 +27,7 @@ public class IdlePropertyAdapter extends RecyclerView.Adapter<IdlePropertyAdapte
         public ViewHolder(@NonNull View view) {
             super(view);
             this.idlePropertyImgImageView = (ImageView) view.findViewById(R.id.iv_idlePropertyImg);
-            this.idlePropertyTitleTextView = (TextView) view.findViewById(R.id.tv_idlePropertyTitle);
+            this.idlePropertyTitleTextView = (TextView) view.findViewById(R.id.tv_idleGoodsTitle);
         }
     }
 

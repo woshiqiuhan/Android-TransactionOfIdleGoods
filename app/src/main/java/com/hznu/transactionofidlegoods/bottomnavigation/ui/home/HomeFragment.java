@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.hznu.transactionofidlegoods.R;
+import com.hznu.transactionofidlegoods.domain.IdleGoods;
 import com.hznu.transactionofidlegoods.domain.IdleProperty;
+import com.hznu.transactionofidlegoods.service.GetIdleGoodsInfoList;
 import com.hznu.transactionofidlegoods.utils.FilePersistenceUtils;
+import com.hznu.transactionofidlegoods.utils.IdleGoodsAdapter;
 import com.hznu.transactionofidlegoods.utils.IdlePropertyAdapter;
 import com.hznu.transactionofidlegoods.utils.ScreenUtils;
 import com.hznu.transactionofidlegoods.utils.SoftKeyBoardListener;
@@ -37,7 +42,7 @@ public class HomeFragment extends Fragment {
     private List<String> searchRecords;
 
     //闲置物列表
-    public List<IdleProperty> idleProperties;
+    public List<IdleGoods> idleGoodsInfoList;
 
     private SearchView homeFragmentSearchView;
     private ListPopupWindow searchRecordsListPopupWindow;
@@ -196,23 +201,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        init();
+        idleGoodsInfoList = GetIdleGoodsInfoList.getIdleGoodsInfoList();
+        for (IdleGoods goods : idleGoodsInfoList) {
+            Log.d("IdleGoodsInfoList", goods.getGoodsCoverImgDir());
+        }
+
         idlePropertyRecyclerView = (RecyclerView) root.findViewById(R.id.rv_idleProperty);
-//        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
         idlePropertyRecyclerView.setLayoutManager(manager);
-        IdlePropertyAdapter idlePropertyAdapter = new IdlePropertyAdapter(idleProperties);
-        idlePropertyRecyclerView.setAdapter(idlePropertyAdapter);
+        IdleGoodsAdapter idleGoodsAdapter = new IdleGoodsAdapter(idleGoodsInfoList);
+        idlePropertyRecyclerView.setAdapter(idleGoodsAdapter);
         return root;
     }
 
-    public void init() {
-        idleProperties = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            idleProperties.add(new IdleProperty("口罩", R.drawable.kouzhao));
-            idleProperties.add(new IdleProperty("防护服", R.drawable.fanghufu));
-            idleProperties.add(new IdleProperty("榻榻米", R.drawable.tatami));
-            idleProperties.add(new IdleProperty("护目镜", R.drawable.humujing));
-        }
-    }
 }

@@ -2,6 +2,9 @@ package com.hznu.transactionofidlegoods.service;
 
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.hznu.transactionofidlegoods.domain.IdleGoods;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,12 +12,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class GetUserInfo {
-    public static String path = "http://woshiqiuhan.free.idcfengye.com/demo/userinfo";
-    static String result = "error msg";
+public class GetIdleGoodsInfoList {
+    public static String path = "http://woshiqiuhan.free.idcfengye.com/demo/android/getidlegoodsinfolist";
+    static List<IdleGoods> idleGoods = null;
 
-    public static String getUserInfo(String userloginid) {
+    public static List<IdleGoods> getIdleGoodsInfoList() {
         try {
             Thread thread = new Thread(new Runnable() {
                 @Override
@@ -23,11 +29,8 @@ public class GetUserInfo {
                     PrintWriter out = null;
                     BufferedInputStream in = null;
                     HttpURLConnection httpURLConnection = null;
-                    String data = null;//设置数据
                     try {
                         httpURLConnection = (HttpURLConnection) new URL(path).openConnection();
-                        data = new StringBuilder("userloginid=").append(URLEncoder.encode(userloginid, "UTF-8")).toString();
-                        Log.d("Login", data);
 
 
                         httpURLConnection.setConnectTimeout(8000);//设置连接超时时间
@@ -35,14 +38,9 @@ public class GetUserInfo {
                         httpURLConnection.setRequestMethod("POST");//设置请求方法,post
 
                         httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");//设置响应类型
-                        httpURLConnection.setRequestProperty("Content-Length", data.length() + "");//设置内容长度
                         httpURLConnection.setDoOutput(true);//允许输出
 
                         httpURLConnection.connect();
-                        out = new PrintWriter(httpURLConnection.getOutputStream());
-                        out.print(data);
-                        out.flush();
-
 
                         /**
                          * 坑点：若不调用httpURLConnection.getResponseCode();方法
@@ -51,7 +49,7 @@ public class GetUserInfo {
                         int responseCode = httpURLConnection.getResponseCode();
                         if (responseCode == 200) {
                             in = new BufferedInputStream(httpURLConnection.getInputStream());
-                            Log.d("LoginInfo", "发送成功");
+                            Log.d("IdleGoodsInfoList", "发送成功");
 
                             StringBuilder strb = new StringBuilder();
                             byte[] bytes = new byte[2048];
@@ -59,11 +57,12 @@ public class GetUserInfo {
                             while ((len = in.read(bytes)) != -1) {
                                 strb.append(new String(bytes, 0, len));
                             }
-                            result = URLDecoder.decode(strb.toString(), "UTF-8");
-                            Log.d("LoginInfo", result);
+                            String result = URLDecoder.decode(strb.toString(), "UTF-8");
+                            Log.d("IdleGoodsInfoList", result);
+
+                            idleGoods = IdleGoods.parseToList(result);
+                            Log.d("IdleGoodsInfoList", idleGoods.toString());
                         }
-
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     } finally {
@@ -79,12 +78,13 @@ public class GetUserInfo {
                         }
                     }
                 }
+
             });
             thread.start();
             thread.join();  //使得调用线程等待该线程完成后，才能继续用下运行
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return result;
+        return idleGoods;
     }
 }
