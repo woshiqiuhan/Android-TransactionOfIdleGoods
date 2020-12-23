@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!--布局展示页面，UI美化，无效果-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_myOtherFunction16"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_other_function_01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_myOtherFunction16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="7.5dp"
+            android:gravity="center_horizontal"
+            android:text="商店"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction16"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/iv_myOtherFunction17"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginLeft="43dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_other_function_02"
+            app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction16"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_myOtherFunction17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="7.5dp"
+            android:gravity="center_horizontal"
+            android:text="超市"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_myOtherFunction16"
+            app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction17"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/iv_myOtherFunction18"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginLeft="44dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_other_function_03"
+            app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction17"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_myOtherFunction18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="7.5dp"
+            android:gravity="center_horizontal"
+            android:text="店铺"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_myOtherFunction17"
+            app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction18"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/iv_myOtherFunction19"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginLeft="43dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_other_function_04"
+            app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction18"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_myOtherFunction19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="7.5dp"
+            android:gravity="center_horizontal"
+            android:text="商城"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_myOtherFunction18"
+            app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction19"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/iv_myOtherFunction20"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginLeft="43dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_other_function_05"
+            app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction19"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_myOtherFunction20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="7.5dp"
+            android:gravity="center_horizontal"
+            android:text="花店"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_myOtherFunction19"
+            app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction20"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_myOtherFunction21"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="7.5dp"
+            android:src="@drawable/ic_other_function_04"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_myOtherFunction21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="7.5dp"
+            android:gravity="center_horizontal"
+            android:text="超市"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction21"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/iv_myOtherFunction22"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginLeft="43dp"
+            android:layout_marginTop="7.5dp"
+            android:src="@drawable/ic_other_function_01"
+            app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction21"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_myOtherFunction22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="7.5dp"
+            android:gravity="center_horizontal"
+            android:text="当铺"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_myOtherFunction21"
+            app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction22"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/iv_myOtherFunction23"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginLeft="43dp"
+            android:layout_marginTop="7.5dp"
+            android:src="@drawable/ic_other_function_05"
+            app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction22"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_myOtherFunction23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="7.5dp"
+            android:gravity="center_horizontal"
+            android:text="酒店"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_myOtherFunction22"
+            app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction23"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/iv_myOtherFunction24"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginLeft="43dp"
+            android:layout_marginTop="7.5dp"
+            android:src="@drawable/ic_other_function_02"
+            app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction23"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_myOtherFunction24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="7.5dp"
+            android:gravity="center_horizontal"
+            android:text="电商"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_myOtherFunction23"
+            app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction24"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/iv_myOtherFunction25"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginLeft="43dp"
+            android:layout_marginTop="7.5dp"
+            android:src="@drawable/ic_other_function_03"
+            app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction24"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_myOtherFunction25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="7.5dp"
+            android:gravity="center_horizontal"
+            android:text="无印"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_myOtherFunction24"
+            app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction25"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

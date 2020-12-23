@@ -376,6 +376,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction05"
                 app:layout_constraintVertical_bias="1.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -387,7 +388,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="7.5dp"
-                android:src="@drawable/ic_other_function_01"
+                android:src="@drawable/ic_other_function_04"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -414,7 +415,7 @@
                 android:layout_marginStart="43dp"
                 android:layout_marginLeft="43dp"
                 android:layout_marginTop="7.5dp"
-                android:src="@drawable/ic_other_function_02"
+                android:src="@drawable/ic_other_function_01"
                 app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction06"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -441,7 +442,7 @@
                 android:layout_marginStart="43dp"
                 android:layout_marginLeft="43dp"
                 android:layout_marginTop="7.5dp"
-                android:src="@drawable/ic_other_function_03"
+                android:src="@drawable/ic_other_function_05"
                 app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction07"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -468,7 +469,7 @@
                 android:layout_marginStart="43dp"
                 android:layout_marginLeft="43dp"
                 android:layout_marginTop="7.5dp"
-                android:src="@drawable/ic_other_function_04"
+                android:src="@drawable/ic_other_function_02"
                 app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction08"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -489,18 +490,18 @@
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
-                android:id="@+id/iv_myOtherFunction010"
+                android:id="@+id/iv_myOtherFunction10"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="43dp"
                 android:layout_marginLeft="43dp"
                 android:layout_marginTop="7.5dp"
-                android:src="@drawable/ic_other_function_05"
+                android:src="@drawable/ic_other_function_03"
                 app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction09"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_myOtherFunction010"
+                android:id="@+id/tv_myOtherFunction10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -512,9 +513,10 @@
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_myOtherFunction09"
-                app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction010"
+                app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction10"
                 app:layout_constraintVertical_bias="1.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -526,7 +528,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="7.5dp"
-                android:src="@drawable/ic_other_function_01"
+                android:src="@drawable/ic_other_function_05"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -553,7 +555,7 @@
                 android:layout_marginStart="43dp"
                 android:layout_marginLeft="43dp"
                 android:layout_marginTop="7.5dp"
-                android:src="@drawable/ic_other_function_02"
+                android:src="@drawable/ic_other_function_04"
                 app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction11"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -607,7 +609,7 @@
                 android:layout_marginStart="43dp"
                 android:layout_marginLeft="43dp"
                 android:layout_marginTop="7.5dp"
-                android:src="@drawable/ic_other_function_04"
+                android:src="@drawable/ic_other_function_02"
                 app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction13"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -628,18 +630,18 @@
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
-                android:id="@+id/iv_myOtherFunction015"
+                android:id="@+id/iv_myOtherFunction15"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="43dp"
                 android:layout_marginLeft="43dp"
                 android:layout_marginTop="7.5dp"
-                android:src="@drawable/ic_other_function_05"
+                android:src="@drawable/ic_other_function_01"
                 app:layout_constraintStart_toEndOf="@+id/iv_myOtherFunction14"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_myOtherFunction015"
+                android:id="@+id/tv_myOtherFunction15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -651,7 +653,7 @@
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_myOtherFunction14"
-                app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction015"
+                app:layout_constraintTop_toBottomOf="@+id/iv_myOtherFunction15"
                 app:layout_constraintVertical_bias="1.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

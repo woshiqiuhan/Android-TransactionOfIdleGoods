@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 
+import com.hznu.transactionofidlegoods.bottomnavigation.BottonNavigationActivity;
 import com.hznu.transactionofidlegoods.domain.IdleGoods;
 import com.hznu.transactionofidlegoods.login.LoginActivity;
 import com.hznu.transactionofidlegoods.myview.MyImageView;
@@ -29,29 +30,12 @@ public class MainActivity extends BaseActivity {
             supportActionBar.hide();
         }
 
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        /*Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         Toast.makeText(MainActivity.this, "请先登录！", Toast.LENGTH_SHORT).show();
+        startActivity(intent);*/
+
+        Intent intent = new Intent(MainActivity.this, BottonNavigationActivity.class);
         startActivity(intent);
-
-        /*List<IdleGoods> idleGoodsInfoList = GetIdleGoodsInfoList.getIdleGoodsInfoList();
-        Log.d("IdleGoodsInfoList", idleGoodsInfoList.size() + "");
-
-        for (IdleGoods goods : idleGoodsInfoList) {
-            Log.d("IdleGoodsInfoList", goods.getGoodsCoverImgDir());
-        }*/
-
-        /*MyImageView idlePropertyImgMyImageView = (MyImageView) findViewById(R.id.mv_idleGoodsImg);
-
-        TextView idlePropertyTitleTextView = (TextView) findViewById(R.id.tv_idleGoodsTitle);
-        TextView idlePropertyPersonTextView = (TextView) findViewById(R.id.tv_idleGoodsPerson);
-        TextView idlePropertyLocationTextView = (TextView) findViewById(R.id.tv_idleGoodsLocation);
-        TextView idlePropertyPriceTextView = (TextView) findViewById(R.id.tv_idleGoodsPrice);
-
-        idlePropertyImgMyImageView.setImageURL(idleGoodsInfoList.get(0).getGoodsCoverImgDir());
-        idlePropertyTitleTextView.setText(idleGoodsInfoList.get(0).getGoodsName());
-        idlePropertyPersonTextView.setText(idleGoodsInfoList.get(0).getUser().getUserName());
-        idlePropertyLocationTextView.setText(idleGoodsInfoList.get(0).getGoodsProvince());
-        idlePropertyPriceTextView.setText(idleGoodsInfoList.get(0).getGoodsPrice() + "");*/
     }
 
 }

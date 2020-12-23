@@ -23,7 +23,7 @@ import com.hznu.transactionofidlegoods.utils.SharePreferencesUtils;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class MyFragment extends Fragment {
+public class MyFragment extends Fragment implements View.OnClickListener {
 
     private MyViewModel myViewModel;
     private Button logoutButton;
@@ -57,6 +57,17 @@ public class MyFragment extends Fragment {
             myUserNameTextView.setText(localUserName);
         }
 
+        // 初始化用于美化UI的点击事件
+        initUIClick(root);
+
+        // 简单个人信息展示点击进入详细信息展示页
+        myUserInfoLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "You clicked me", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // 查看我收藏的事件绑定
         myCollectionImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,15 +81,7 @@ public class MyFragment extends Fragment {
                 Toast.makeText(getContext(), "You clicked me", Toast.LENGTH_SHORT).show();
             }
         });
-
-        // 简单个人信息展示点击进入详细信息展示页
-        myUserInfoLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "You clicked me", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        
         // 查看详情信息事件绑定
         showMyInfoDetailButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,5 +103,75 @@ public class MyFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void initUIClick(View view) {
+        view.findViewById(R.id.iv_myOtherFunction01).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction01).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction02).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction02).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction03).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction03).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction04).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction04).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction05).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction05).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction06).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction06).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction07).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction07).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction08).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction08).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction09).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction09).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction10).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction10).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction11).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction11).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction12).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction12).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction13).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction13).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction14).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction14).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction15).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction15).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_myOtherFunction01:
+            case R.id.tv_myOtherFunction01:
+            case R.id.iv_myOtherFunction02:
+            case R.id.tv_myOtherFunction02:
+            case R.id.iv_myOtherFunction03:
+            case R.id.tv_myOtherFunction03:
+            case R.id.iv_myOtherFunction04:
+            case R.id.tv_myOtherFunction04:
+            case R.id.iv_myOtherFunction05:
+            case R.id.tv_myOtherFunction05:
+            case R.id.iv_myOtherFunction06:
+            case R.id.tv_myOtherFunction06:
+            case R.id.iv_myOtherFunction07:
+            case R.id.tv_myOtherFunction07:
+            case R.id.iv_myOtherFunction08:
+            case R.id.tv_myOtherFunction08:
+            case R.id.iv_myOtherFunction10:
+            case R.id.tv_myOtherFunction10:
+            case R.id.iv_myOtherFunction11:
+            case R.id.tv_myOtherFunction11:
+            case R.id.iv_myOtherFunction12:
+            case R.id.tv_myOtherFunction12:
+            case R.id.iv_myOtherFunction13:
+            case R.id.tv_myOtherFunction13:
+            case R.id.iv_myOtherFunction14:
+            case R.id.tv_myOtherFunction14:
+            case R.id.iv_myOtherFunction15:
+            case R.id.tv_myOtherFunction15:
+                Toast.makeText(getContext(), "You clicked me!", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
     }
 }

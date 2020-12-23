@@ -36,7 +36,7 @@ import com.hznu.transactionofidlegoods.utils.SoftKeyBoardListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     // 数据的列表，即搜索下拉框列表元素，后从数据库获取
     private List<String> searchRecords;
@@ -201,14 +201,73 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        idleGoodsInfoList = GetIdleGoodsInfoList.getIdleGoodsInfoList();
+
+//        idleGoodsInfoList = GetIdleGoodsInfoList.getIdleGoodsInfoList();
+        idleGoodsInfoList = new ArrayList<>();
 
         idlePropertyRecyclerView = (RecyclerView) root.findViewById(R.id.rv_idleProperty);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         idlePropertyRecyclerView.setLayoutManager(manager);
         IdleGoodsAdapter idleGoodsAdapter = new IdleGoodsAdapter(idleGoodsInfoList);
+        View view = LayoutInflater.from(getContext()).
+                inflate(R.layout.idle_goods_header, idlePropertyRecyclerView, false);
+        idleGoodsAdapter.setHeaderView(view);
+        initUIClick(view);
+
+
         idlePropertyRecyclerView.setAdapter(idleGoodsAdapter);
         return root;
     }
 
+    private void initUIClick(View view) {
+        view.findViewById(R.id.iv_myOtherFunction16).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction16).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction17).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction17).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction18).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction18).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction19).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction19).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction20).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction20).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction21).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction21).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction22).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction22).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction23).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction23).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction24).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction24).setOnClickListener(this);
+        view.findViewById(R.id.iv_myOtherFunction25).setOnClickListener(this);
+        view.findViewById(R.id.tv_myOtherFunction25).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_myOtherFunction16:
+            case R.id.tv_myOtherFunction16:
+            case R.id.iv_myOtherFunction17:
+            case R.id.tv_myOtherFunction17:
+            case R.id.iv_myOtherFunction18:
+            case R.id.tv_myOtherFunction18:
+            case R.id.iv_myOtherFunction19:
+            case R.id.tv_myOtherFunction19:
+            case R.id.iv_myOtherFunction20:
+            case R.id.tv_myOtherFunction20:
+            case R.id.iv_myOtherFunction21:
+            case R.id.tv_myOtherFunction21:
+            case R.id.iv_myOtherFunction22:
+            case R.id.tv_myOtherFunction22:
+            case R.id.iv_myOtherFunction23:
+            case R.id.tv_myOtherFunction23:
+            case R.id.iv_myOtherFunction24:
+            case R.id.tv_myOtherFunction24:
+            case R.id.iv_myOtherFunction25:
+            case R.id.tv_myOtherFunction25:
+                Toast.makeText(getContext(), "You clicked me!", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+    }
 }

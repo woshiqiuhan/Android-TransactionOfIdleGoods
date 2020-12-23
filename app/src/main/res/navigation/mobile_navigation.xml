@@ -5,7 +5,7 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
-    <fragment
+    <!--<fragment
         android:id="@+id/navigation_home"
         android:name="com.hznu.transactionofidlegoods.bottomnavigation.ui.home.HomeFragment"
         android:label="@string/title_home"
@@ -27,5 +27,5 @@
         android:id="@+id/navigation_my"
         android:name="com.hznu.transactionofidlegoods.bottomnavigation.ui.my.MyFragment"
         android:label="@string/title_my"
-        tools:layout="@layout/fragment_my" />
+        tools:layout="@layout/fragment_my" />-->
 </navigation>
