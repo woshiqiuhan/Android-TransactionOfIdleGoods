@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GetIdleGoodsInfoList {
-    public static String path = "http://woshiqiuhan.free.idcfengye.com/demo/android/getidlegoodsinfolist";
+    public static String path = "http://wowowowo.vipgz1.idcfengye.com/demo/android/getidlegoodsinfolist";
     static List<IdleGoods> idleGoods = null;
 
     public static List<IdleGoods> getIdleGoodsInfoList() {

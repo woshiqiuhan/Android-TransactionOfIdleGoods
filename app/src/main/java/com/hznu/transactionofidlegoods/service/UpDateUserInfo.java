@@ -4,20 +4,21 @@ import android.util.Log;
 
 import com.hznu.transactionofidlegoods.domain.User;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-public class UserRegister {
-    public static String path = "http://wowowowo.vipgz1.idcfengye.com/demo/register";
-    static boolean flag = false;
+public class UpDateUserInfo {
+    public static String path = "http://wowowowo.vipgz1.idcfengye.com/demo/modifyuserinfo";
+    static boolean result = false;
 
-    public static boolean register(User user) {
-        Log.d("Register", path);
+    public static boolean modifyUserInfo(User user) {
         try {
             Thread thread = new Thread(new Runnable() {
                 @Override
@@ -25,16 +26,16 @@ public class UserRegister {
                     URL url = null;
                     PrintWriter out = null;
                     BufferedReader in = null;
-                    HttpURLConnection httpURLConnection;
-                    String data;//设置数据
+                    HttpURLConnection httpURLConnection = null;
+                    String data = null;//设置数据
                     try {
                         httpURLConnection = (HttpURLConnection) new URL(path).openConnection();
-                        data = new StringBuilder("userloginid=").append(URLEncoder.encode(user.getUserLoginId(), "UTF-8")).
-                                append("&userpassword=").append(URLEncoder.encode(user.getUserPassword(), "UTF-8")).
+                        data = new StringBuilder("userId=").append(URLEncoder.encode(user.getUserId(), "UTF-8")).
+                                append("&userloginid=").append(URLEncoder.encode(user.getUserLoginId(), "UTF-8")).
                                 append("&username=").append(URLEncoder.encode(user.getUserName(), "UTF-8")).
                                 append("&useremail=").append(URLEncoder.encode(user.getUserEmail(), "UTF-8")).
                                 append("&usephonenumber=").append(URLEncoder.encode(user.getUserPhoneNum(), "UTF-8")).toString();
-                        Log.d("Register", data);
+                        Log.d("Login", data);
 
 
                         httpURLConnection.setConnectTimeout(8000);//设置连接超时时间
@@ -57,12 +58,11 @@ public class UserRegister {
                          */
                         int responseCode = httpURLConnection.getResponseCode();
                         if (responseCode == 200) {
-                            Log.d("Register", "发送成功");
                             in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-                            flag = in.readLine().equals("1");
-                            Log.d("Register", "注册" + (flag ? "成功" : "失败"));
+                            Log.d("Modify", "发送成功");
+                            result = in.readLine().equals("1");
+                            Log.d("Modify", "更新" + (result ? "成功" : "失败"));
                         }
-
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -79,15 +79,12 @@ public class UserRegister {
                         }
                     }
                 }
-
-
             });
             thread.start();
             thread.join();  //使得调用线程等待该线程完成后，才能继续用下运行
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        return flag;
+        return result;
     }
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".bottomnavigation.ui.my.MyDeatilInfoActivity">
+
+    <com.hznu.transactionofidlegoods.myview.MyTitleBar
+        android:id="@+id/myTitleBar_myInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--头像-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="15dp"
+            android:src="@drawable/ic_head_portrait" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="修改头像" />
+    </LinearLayout>
+
+    <!--编辑界面，此处可以写成一个MyItemGroup上传至com上-->
+    <com.hznu.transactionofidlegoods.myview.MyItemGroup
+        android:id="@+id/myItemGroup_userId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:jt_visible="false"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="用户ID：" />
+
+    <com.hznu.transactionofidlegoods.myview.MyItemGroup
+        android:id="@+id/myItemGroup_userLoginId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="修改登录账号"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="登录账号：" />
+
+    <com.hznu.transactionofidlegoods.myview.MyItemGroup
+        android:id="@+id/myItemGroup_userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="修改用户名"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="用户名：" />
+
+    <com.hznu.transactionofidlegoods.myview.MyItemGroup
+        android:id="@+id/myItemGroup_userEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="修改用户邮箱"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="用户邮箱：" />
+
+    <com.hznu.transactionofidlegoods.myview.MyItemGroup
+        android:id="@+id/myItemGroup_userPhoneNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="修改用户手机号"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="联系方式：" />
+
+    <com.hznu.transactionofidlegoods.myview.MyItemGroup
+        android:id="@+id/myItemGroup_userRegisterDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:jt_visible="false"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="注册日期：" />
+</LinearLayout>

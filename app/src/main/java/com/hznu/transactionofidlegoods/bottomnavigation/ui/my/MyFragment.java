@@ -1,5 +1,6 @@
 package com.hznu.transactionofidlegoods.bottomnavigation.ui.my;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class MyFragment extends Fragment implements View.OnClickListener {
 
+    public static final String TAG = "MyFragment";
+
     private MyViewModel myViewModel;
     private Button logoutButton;
     private Button showMyInfoDetailButton;
@@ -32,6 +35,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private TextView myCollectionTextView;
     private TextView myUserNameTextView;
     private LinearLayout myUserInfoLinearLayout;
+    private SharedPreferences userinfo;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +49,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         myUserNameTextView = (TextView) root.findViewById(R.id.tv_myUserName);
         myUserInfoLinearLayout = (LinearLayout) root.findViewById(R.id.ly_myUserInfo);
 
-        SharedPreferences userinfo = getContext().getSharedPreferences(SharePreferencesUtils.USER_INFORMATION_FILE, MODE_PRIVATE);
+        userinfo = getContext().getSharedPreferences(SharePreferencesUtils.USER_INFORMATION_FILE, MODE_PRIVATE);
         String localUserId = userinfo.getString("userId", null);
         String localUserLoginId = userinfo.getString("userLoginId", null);
         String localUserName = userinfo.getString("userName", null);
@@ -64,7 +68,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         myUserInfoLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "You clicked me", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), MyDeatilInfoActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -81,12 +86,13 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getContext(), "You clicked me", Toast.LENGTH_SHORT).show();
             }
         });
-        
+
         // 查看详情信息事件绑定
         showMyInfoDetailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "You clicked me", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), MyDeatilInfoActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -172,6 +178,17 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getContext(), "You clicked me!", Toast.LENGTH_SHORT).show();
                 break;
 
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+        String localUserName = userinfo.getString("userName", null);
+
+        if (localUserName != null) {
+            myUserNameTextView.setText(localUserName);
         }
     }
 }

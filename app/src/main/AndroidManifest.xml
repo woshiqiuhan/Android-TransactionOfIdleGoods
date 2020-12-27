@@ -15,16 +15,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TransactionOfIdleGoods"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="n">
+        <activity
+            android:name=".bottomnavigation.ui.my.MyDeatilInfoActivity"
+            android:label="个人详情"
+            />
         <activity
             android:name=".register.RegisterActivity"
-            android:label="@string/title_activity_register"></activity>
+            android:label="@string/title_activity_register" />
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login" />
+        <!-- 设置进入该页面时从返回栈中查找而不是重新创建 -->
         <activity
             android:name=".bottomnavigation.BottonNavigationActivity"
-            android:label="@string/title_activity_botton_navigation" />
+            android:label="@string/title_activity_botton_navigation"
+            android:launchMode="singleTask" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

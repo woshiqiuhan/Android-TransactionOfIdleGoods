@@ -11,7 +11,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 public class GetUserInfo {
-    public static String path = "http://woshiqiuhan.free.idcfengye.com/demo/userinfo";
+    public static String path = "http://wowowowo.vipgz1.idcfengye.com/demo/userinfo";
     static String result = "error msg";
 
     public static String getUserInfo(String userloginid) {

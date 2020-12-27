@@ -16,7 +16,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class UserLogin {
-    public static String path = "http://woshiqiuhan.free.idcfengye.com/demo/login";
+    public static String path = "http://wowowowo.vipgz1.idcfengye.com/demo/login";
     static boolean flag = false;
 
     public static boolean login(String userloginid, String userpassword) {

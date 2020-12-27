@@ -12,7 +12,7 @@ import com.hznu.transactionofidlegoods.domain.User;
 public class SharePreferencesUtils {
 
     //存储用户用户名密码的共享文件
-    public static final  String USER_INFORMATION_FILE = "userinformation";
+    public static final String USER_INFORMATION_FILE = "userinformation";
 
     //登录时保存信息
     public static void save(Context context, String username, String passwordm, String fileName) {
@@ -36,6 +36,18 @@ public class SharePreferencesUtils {
         edit.putString("userPhoneNum", user.getUserPhoneNum());
         edit.putString("userEmail", user.getUserEmail());
         edit.putString("userRegisterDate", user.getUserRegisterDate().toLocaleString());
+        edit.apply();
+    }
+
+    // 编辑个人信息页时更新信息
+    public static void save(Context context, String localUserLoginId, String localUserName, String localUserEmail, String localUserPhoneNum, String fileName) {
+        Log.d("LoginInfo", localUserLoginId + " " + localUserName + " " + localUserEmail + " " + localUserEmail);
+        //将用户名密码缓存至本地共享文件
+        SharedPreferences.Editor edit = context.getSharedPreferences(fileName, context.MODE_PRIVATE).edit();
+        edit.putString("userLoginId", localUserLoginId);
+        edit.putString("userName", localUserName);
+        edit.putString("userPhoneNum", localUserPhoneNum);
+        edit.putString("userEmail", localUserEmail);
         edit.apply();
     }
 

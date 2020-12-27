@@ -1,9 +1,9 @@
 <resources>
     <!--    <string name="app_name">TransactionOfIdleGoods</string>-->
     <string name="app_name">闲虾</string>
-    <string name="title_activity_botton_navigation">闲虾</string>
+    <string name="title_activity_botton_navigation">主页</string>
 
-    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_register">用户注册</string>
 
     <!--底部菜单栏-->
     <string name="title_home">闲虾</string>
@@ -12,7 +12,7 @@
     <string name="title_message">消息</string>
 
     <!--登录界面-->
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">用户登录</string>
     <string name="user_login_id">登入账号</string>
     <string name="user_password">密码</string>
     <string name="user_identifying_code">验证码</string>

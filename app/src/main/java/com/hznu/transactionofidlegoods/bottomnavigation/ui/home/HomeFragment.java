@@ -214,7 +214,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         idleGoodsAdapter.setHeaderView(view);
         initUIClick(view);
 
-
         idlePropertyRecyclerView.setAdapter(idleGoodsAdapter);
         return root;
     }

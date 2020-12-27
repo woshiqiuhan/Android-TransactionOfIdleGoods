@@ -87,7 +87,7 @@ public class BottonNavigationActivity extends BaseActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 navController.navigate(item.getItemId());
-                Toast.makeText(BottonNavigationActivity.this, "You clicked me!" + item.getItemId(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(BottonNavigationActivity.this, "You clicked me!" + item.getItemId(), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

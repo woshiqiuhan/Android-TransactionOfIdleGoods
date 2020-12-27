@@ -36,7 +36,8 @@ android {
                             'src/main/res/layouts',
                             'src/main/res/layouts/item',
                             'src/main/res',
-                            'src/main/res/layouts/recyclerview'
+                            'src/main/res/layouts/recyclerview',
+                            'src/main/res/layouts/common'
                     ]
         }
     }
