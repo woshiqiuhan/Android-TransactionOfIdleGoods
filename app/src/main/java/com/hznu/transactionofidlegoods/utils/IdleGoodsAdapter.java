@@ -1,19 +1,25 @@
 package com.hznu.transactionofidlegoods.utils;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSON;
 import com.hznu.transactionofidlegoods.R;
+import com.hznu.transactionofidlegoods.bottomnavigation.ui.home.IdleGoodsDetailInfoActivity;
 import com.hznu.transactionofidlegoods.domain.IdleGoods;
 import com.hznu.transactionofidlegoods.domain.IdleProperty;
+import com.hznu.transactionofidlegoods.login.LoginActivity;
 import com.hznu.transactionofidlegoods.myview.MyImageView;
 
 import java.util.List;
@@ -27,6 +33,7 @@ public class IdleGoodsAdapter extends RecyclerView.Adapter<IdleGoodsAdapter.View
     public static final int TYPE_NORMAL = 2; //说明是不带有header和footer的
 
     private List<IdleGoods> idleGoodsInfoList;
+    private Context mcontext;
 
     // RecyclerView顶部
     private View mHeaderView;
@@ -34,7 +41,7 @@ public class IdleGoodsAdapter extends RecyclerView.Adapter<IdleGoodsAdapter.View
 
     class ViewHolder extends RecyclerView.ViewHolder {
         MyImageView idlePropertyImgMyImageView;
-
+        LinearLayout idleGoodsItemLinearLayout;
         TextView idlePropertyTitleTextView;
         TextView idlePropertyPersonTextView;
         TextView idlePropertyLocationTextView;
@@ -49,7 +56,7 @@ public class IdleGoodsAdapter extends RecyclerView.Adapter<IdleGoodsAdapter.View
             if (view == mFooterView) {
                 return;
             }
-
+            idleGoodsItemLinearLayout = (LinearLayout) view.findViewById(R.id.ll_idleGoodsItem);
             idlePropertyImgMyImageView = (MyImageView) view.findViewById(R.id.mv_idleGoodsImg);
 
             idlePropertyTitleTextView = (TextView) view.findViewById(R.id.tv_idleGoodsTitle);
@@ -59,8 +66,9 @@ public class IdleGoodsAdapter extends RecyclerView.Adapter<IdleGoodsAdapter.View
         }
     }
 
-    public IdleGoodsAdapter(List<IdleGoods> idleGoodsInfoList) {
+    public IdleGoodsAdapter(List<IdleGoods> idleGoodsInfoList, Context mcontext) {
         this.idleGoodsInfoList = idleGoodsInfoList;
+        this.mcontext = mcontext;
     }
 
     @NonNull
@@ -89,6 +97,16 @@ public class IdleGoodsAdapter extends RecyclerView.Adapter<IdleGoodsAdapter.View
                 holder.idlePropertyPersonTextView.setText(goods.getUser().getUserName());
                 holder.idlePropertyLocationTextView.setText(goods.getGoodsProvince());
                 holder.idlePropertyPriceTextView.setText(goods.getGoodsPrice() + "");
+
+                holder.idleGoodsItemLinearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mcontext, IdleGoodsDetailInfoActivity.class);
+                        intent.putExtra("goodsId", goods.getGoodsId());
+                        mcontext.startActivity(intent);
+                        Toast.makeText(mcontext, goods.getGoodsName(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 return;
             }

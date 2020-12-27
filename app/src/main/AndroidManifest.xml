@@ -17,17 +17,19 @@
         android:theme="@style/Theme.TransactionOfIdleGoods"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
+        <activity android:name=".bottomnavigation.ui.home.IdleGoodsDetailInfoActivity"></activity>
+        <activity
+            android:name=".bottomnavigation.ui.my.MyCollectedListActivity"
+            android:label="收藏夹" />
         <activity
             android:name=".bottomnavigation.ui.my.MyDeatilInfoActivity"
-            android:label="个人详情"
-            />
+            android:label="个人详情" />
         <activity
             android:name=".register.RegisterActivity"
             android:label="@string/title_activity_register" />
         <activity
             android:name=".login.LoginActivity"
-            android:label="@string/title_activity_login" />
-        <!-- 设置进入该页面时从返回栈中查找而不是重新创建 -->
+            android:label="@string/title_activity_login" /> <!-- 设置进入该页面时从返回栈中查找而不是重新创建 -->
         <activity
             android:name=".bottomnavigation.BottonNavigationActivity"
             android:label="@string/title_activity_botton_navigation"

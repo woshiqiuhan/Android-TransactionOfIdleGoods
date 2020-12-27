@@ -205,6 +205,9 @@ public class IdleGoods {
     }
 
     public static List<IdleGoods> parseToList(String result) {
+        if (result.equals("[]")) {
+            return null;
+        }
         List<IdleGoods> res = new ArrayList<>();
         List<Map<Object, Object>> mpLists = (List<Map<Object, Object>>) JSON.parse(result);
         for (Map<Object, Object> mpList : mpLists) {

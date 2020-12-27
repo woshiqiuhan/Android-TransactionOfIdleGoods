@@ -64,37 +64,13 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         // 初始化用于美化UI的点击事件
         initUIClick(root);
 
-        // 简单个人信息展示点击进入详细信息展示页
-        myUserInfoLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MyDeatilInfoActivity.class);
-                startActivity(intent);
-            }
-        });
-
         // 查看我收藏的事件绑定
-        myCollectionImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "You clicked me", Toast.LENGTH_SHORT).show();
-            }
-        });
-        myCollectionTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "You clicked me", Toast.LENGTH_SHORT).show();
-            }
-        });
+        myCollectionImageView.setOnClickListener(this);
+        myCollectionTextView.setOnClickListener(this);
 
-        // 查看详情信息事件绑定
-        showMyInfoDetailButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MyDeatilInfoActivity.class);
-                startActivity(intent);
-            }
-        });
+        // 简单个人信息展示点击进入详细信息展示页
+        myUserInfoLinearLayout.setOnClickListener(this);
+        showMyInfoDetailButton.setOnClickListener(this);
 
         // 退出登录事件绑定
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +122,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch (v.getId()) {
             case R.id.iv_myOtherFunction01:
             case R.id.tv_myOtherFunction01:
@@ -177,7 +154,17 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             case R.id.tv_myOtherFunction15:
                 Toast.makeText(getContext(), "You clicked me!", Toast.LENGTH_SHORT).show();
                 break;
-
+            case R.id.btn_showMyInfoDetail:
+            case R.id.ly_myUserInfo:
+                // 简单个人信息展示点击进入详细信息展示页
+                intent = new Intent(getContext(), MyDeatilInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_myCollection:
+            case R.id.iv_myCollection:
+                intent = new Intent(getContext(), MyCollectedListActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -185,6 +172,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart");
+        // 更新完用户信息并退出详情页时，该活动的该Fragment处于栈顶显示，此时更新用户名保持信息一致性
         String localUserName = userinfo.getString("userName", null);
 
         if (localUserName != null) {

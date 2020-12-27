@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/border"
+    android:id="@+id/ll_idleGoodsItem"
     android:layout_margin="5dp">
 
     <com.hznu.transactionofidlegoods.myview.MyImageView

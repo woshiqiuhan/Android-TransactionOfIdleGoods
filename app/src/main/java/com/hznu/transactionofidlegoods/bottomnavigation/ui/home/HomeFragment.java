@@ -202,13 +202,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
 
 
-//        idleGoodsInfoList = GetIdleGoodsInfoList.getIdleGoodsInfoList();
-        idleGoodsInfoList = new ArrayList<>();
+        idleGoodsInfoList = GetIdleGoodsInfoList.getIdleGoodsInfoList();
+        if (idleGoodsInfoList == null) {
+            idleGoodsInfoList = new ArrayList<>();
+        }
 
         idlePropertyRecyclerView = (RecyclerView) root.findViewById(R.id.rv_idleProperty);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         idlePropertyRecyclerView.setLayoutManager(manager);
-        IdleGoodsAdapter idleGoodsAdapter = new IdleGoodsAdapter(idleGoodsInfoList);
+        IdleGoodsAdapter idleGoodsAdapter = new IdleGoodsAdapter(idleGoodsInfoList, getContext());
         View view = LayoutInflater.from(getContext()).
                 inflate(R.layout.idle_goods_header, idlePropertyRecyclerView, false);
         idleGoodsAdapter.setHeaderView(view);
