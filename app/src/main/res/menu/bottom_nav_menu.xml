@@ -12,11 +12,6 @@
         android:title="@string/title_add" />
 
     <item
-        android:id="@+id/navigation_message"
-        android:icon="@drawable/ic_navigation_bar_message"
-        android:title="@string/title_message" />
-
-    <item
         android:id="@+id/navigation_my"
         android:icon="@drawable/ic_navigation_bar_my"
         android:title="@string/title_my" />

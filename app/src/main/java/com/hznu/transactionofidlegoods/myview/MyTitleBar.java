@@ -45,4 +45,7 @@ public class MyTitleBar extends LinearLayout {
         return this.tv_forward;
     }
 
+    public ImageView getIvBackward() {
+        return iv_backward;
+    }
 }

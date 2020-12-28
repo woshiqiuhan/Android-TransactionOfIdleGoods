@@ -2,7 +2,6 @@ package com.hznu.transactionofidlegoods.bottomnavigation;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -10,19 +9,14 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
 import androidx.navigation.NavGraphNavigator;
-import androidx.navigation.Navigation;
 import androidx.navigation.NavigatorProvider;
 import androidx.navigation.fragment.FragmentNavigator;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 import com.hznu.transactionofidlegoods.R;
 import com.hznu.transactionofidlegoods.bottomnavigation.ui.add.AddFragment;
 import com.hznu.transactionofidlegoods.bottomnavigation.ui.home.HomeFragment;
-import com.hznu.transactionofidlegoods.bottomnavigation.ui.message.MessageFragment;
 import com.hznu.transactionofidlegoods.bottomnavigation.ui.my.MyFragment;
 import com.hznu.transactionofidlegoods.myview.FixFragmentNavigator;
 import com.hznu.transactionofidlegoods.utils.BaseActivity;
@@ -93,7 +87,6 @@ public class BottonNavigationActivity extends BaseActivity {
         });
     }
 
-    //手动创建导航图，把4个目的地添加进来
     private NavGraph initNavGraph(NavigatorProvider provider, FixFragmentNavigator fragmentNavigator) {
         NavGraph navGraph = new NavGraph(new NavGraphNavigator(provider));
 
@@ -109,12 +102,6 @@ public class BottonNavigationActivity extends BaseActivity {
         addFragment.setClassName(AddFragment.class.getCanonicalName());
         addFragment.setLabel(getResources().getString(R.string.title_add));
         navGraph.addDestination(addFragment);
-
-        FragmentNavigator.Destination messageFragment = fragmentNavigator.createDestination();
-        messageFragment.setId(R.id.navigation_message);
-        messageFragment.setClassName(MessageFragment.class.getCanonicalName());
-        messageFragment.setLabel(getResources().getString(R.string.title_message));
-        navGraph.addDestination(messageFragment);
 
         FragmentNavigator.Destination myFragment = fragmentNavigator.createDestination();
         myFragment.setId(R.id.navigation_my);

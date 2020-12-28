@@ -5,12 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.hznu.transactionofidlegoods.bottomnavigation.BottonNavigationActivity">
+    tools:context=".bottomnavigation.ui.home.MySearchResultActivity">
 
     <com.hznu.transactionofidlegoods.myview.MyTitleBar
-        android:id="@+id/myTitleBar_releaseIdle"
+        android:id="@+id/myTitleBar_mySearchResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_mySearchResult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

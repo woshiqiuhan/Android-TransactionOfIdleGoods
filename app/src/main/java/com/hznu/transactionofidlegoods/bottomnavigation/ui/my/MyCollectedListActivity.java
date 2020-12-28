@@ -64,6 +64,5 @@ public class MyCollectedListActivity extends AppCompatActivity {
 
             myCollectedListRecyclerView.setAdapter(myCollectedListAdapter);
         }
-
     }
 }

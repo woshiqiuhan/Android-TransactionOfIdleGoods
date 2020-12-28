@@ -17,7 +17,8 @@
         android:theme="@style/Theme.TransactionOfIdleGoods"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".bottomnavigation.ui.home.IdleGoodsDetailInfoActivity"></activity>
+        <activity android:name=".bottomnavigation.ui.home.MySearchResultActivity"></activity>
+        <activity android:name=".bottomnavigation.ui.home.IdleGoodsDetailInfoActivity" />
         <activity
             android:name=".bottomnavigation.ui.my.MyCollectedListActivity"
             android:label="收藏夹" />

@@ -30,12 +30,12 @@ public class MainActivity extends BaseActivity {
             supportActionBar.hide();
         }
 
-        /*Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         Toast.makeText(MainActivity.this, "请先登录！", Toast.LENGTH_SHORT).show();
-        startActivity(intent);*/
-
-        Intent intent = new Intent(MainActivity.this, BottonNavigationActivity.class);
         startActivity(intent);
+
+        /*Intent intent = new Intent(MainActivity.this, BottonNavigationActivity.class);
+        startActivity(intent);*/
     }
 
 }

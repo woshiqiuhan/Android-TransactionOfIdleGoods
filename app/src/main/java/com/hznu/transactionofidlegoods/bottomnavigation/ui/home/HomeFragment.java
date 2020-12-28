@@ -2,6 +2,7 @@ package com.hznu.transactionofidlegoods.bottomnavigation.ui.home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,20 +22,22 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.alibaba.fastjson.JSON;
 import com.hznu.transactionofidlegoods.R;
 import com.hznu.transactionofidlegoods.domain.IdleGoods;
-import com.hznu.transactionofidlegoods.domain.IdleProperty;
 import com.hznu.transactionofidlegoods.service.GetIdleGoodsInfoList;
 import com.hznu.transactionofidlegoods.utils.FilePersistenceUtils;
 import com.hznu.transactionofidlegoods.utils.IdleGoodsAdapter;
-import com.hznu.transactionofidlegoods.utils.IdlePropertyAdapter;
+import com.hznu.transactionofidlegoods.utils.MyCollectedListAdapter;
 import com.hznu.transactionofidlegoods.utils.ScreenUtils;
 import com.hznu.transactionofidlegoods.utils.SoftKeyBoardListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -48,6 +51,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ListPopupWindow searchRecordsListPopupWindow;
     private RecyclerView idlePropertyRecyclerView;
     private Toolbar homeFragmentHeadToolbar;
+
+    private LinearLayoutManager manager;
 
     private HomeViewModel homeViewModel;
 
@@ -74,6 +79,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         searchRecordsListPopupWindow.setHeight(ScreenUtils.getScreenHeight(getContext()) / 2);
 
         searchRecordsListPopupWindow.setModal(false);
+
+        // 初始化闲置物列表
+        idleGoodsInfoList = GetIdleGoodsInfoList.getIdleGoodsInfoList();
+        if (idleGoodsInfoList == null) {
+            idleGoodsInfoList = new ArrayList<>();
+        }
+
+        idlePropertyRecyclerView = (RecyclerView) root.findViewById(R.id.rv_idleProperty);
+        manager = new LinearLayoutManager(getContext());
+        idlePropertyRecyclerView.setLayoutManager(manager);
+        IdleGoodsAdapter idleGoodsAdapter = new IdleGoodsAdapter(idleGoodsInfoList, getContext());
+        View view = LayoutInflater.from(getContext()).
+                inflate(R.layout.idle_goods_header, idlePropertyRecyclerView, false);
+        idleGoodsAdapter.setHeaderView(view);
+        initUIClick(view);
+
+        idlePropertyRecyclerView.setAdapter(idleGoodsAdapter);
+
         //为每项数据项绑定事件
         searchRecordsListPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -160,6 +183,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 homeFragmentSearchView.clearFocus();
                 if (query.length() > 0) {
                     Toast.makeText(getContext(), "搜索内容：" + query, Toast.LENGTH_SHORT).show();
+
                     //添加记录至本地文件
                     boolean flag = FilePersistenceUtils.addHeadDistinct(getContext(), query, FilePersistenceUtils.SREARCH_RECORDS_FILE_NAME);
 
@@ -172,6 +196,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     homeViewModel.addSearchRecord(query);
                     adapter.notifyDataSetChanged();
 
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        List<IdleGoods> collect = idleGoodsInfoList.stream()
+                                .filter(idleGoods -> {
+                                    String goodsName = idleGoods.getGoodsName();
+
+                                    return goodsName.contains(query);
+                                }).collect(Collectors.toList());
+
+                        Intent intent = new Intent(getContext(), MySearchResultActivity.class);
+                        intent.putExtra("searchResult", JSON.toJSONString(collect));
+                        startActivity(intent);
+                    }
                     return true;
                 }
                 return false;
@@ -201,22 +237,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-
-        idleGoodsInfoList = GetIdleGoodsInfoList.getIdleGoodsInfoList();
-        if (idleGoodsInfoList == null) {
-            idleGoodsInfoList = new ArrayList<>();
-        }
-
-        idlePropertyRecyclerView = (RecyclerView) root.findViewById(R.id.rv_idleProperty);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        idlePropertyRecyclerView.setLayoutManager(manager);
-        IdleGoodsAdapter idleGoodsAdapter = new IdleGoodsAdapter(idleGoodsInfoList, getContext());
-        View view = LayoutInflater.from(getContext()).
-                inflate(R.layout.idle_goods_header, idlePropertyRecyclerView, false);
-        idleGoodsAdapter.setHeaderView(view);
-        initUIClick(view);
-
-        idlePropertyRecyclerView.setAdapter(idleGoodsAdapter);
         return root;
     }
 
