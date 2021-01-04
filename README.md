@@ -1,5 +1,5 @@
 # 二手交易系统 Android移动端
-## 主要UI如下
+## UI
 
 1、App Icon
 
